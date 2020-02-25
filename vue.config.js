@@ -2,7 +2,7 @@ module.exports = {
   css: {
     loaderOptions: {
       sass: {
-        data: `
+        prependData: `
           @import "@/sass/framework/framework";
           @import "@/sass/ui/ui";
         `

@@ -15,17 +15,19 @@ Here are some examples of features we would like to see, but feel free to be as 
 
 The task should take approximately 2-4 hours to complete. We're not expecting you to finish the app, we're more interested to see how you approach the task so just do what you can in the time you have.
 
+When you have finished, you can either send over you solution as a zip file or add a [collaborator to your repository](https://help.github.com/en/github/setting-up-and-managing-your-github-user-account/inviting-collaborators-to-a-personal-repository). Let us know which you'd prefer and we will provide details the relevant details.
+
 Good luck!
 
 ## Getting set up
 
 1. Download and install [Node.js](https://nodejs.org/)
 
-1. Clone the repository:
+1. Create a [new private repository](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-new-repository) within your Github account
 
-   ```bash
-   git clone git@github.com:boughtbymany/fe-candidate-javascript-task-[your_github_username].git
-   ```
+1. Duplicate the `boughtbymany/fe-candidate-javascript-task` and mirror-push it to your newly created repository. See [here](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/duplicating-a-repository) for instructions on how to do this.
+
+1. Clone the repository you created.
 
 1. Install dependencies:
 
