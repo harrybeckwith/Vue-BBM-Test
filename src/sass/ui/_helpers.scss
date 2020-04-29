@@ -30,7 +30,7 @@
     // Make all unordered list items have disc style
     // and not inherit nested circle or square
     // FIX ME / TODO
-    // feels like there could be a more succint way of doing this?
+    // feels like there could be a more succinct way of doing this?
     &ul li,
     ul li,
     ul li ul li,
@@ -44,7 +44,7 @@
     flex-wrap: wrap;
     // Remove default list styles
     list-style: none;
-    margin: 0;
+    margin-left: 0;
     padding: 0;
 
     > li {
@@ -62,19 +62,33 @@
     }
   }
 
-  &--columns-2 {
+  // Lists with multiple columns (viewport dependent)
+  &--columns-2,
+  &--columns-3 {
     @include breakpoint(sm-up) {
-      column-count: 2;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      > li {
+        margin-right: $gutter;
+      }
     }
   }
 
-  &--columns-3 {
+  &--columns-2 > li {
     @include breakpoint(sm-up) {
-      column-count: 2;
+      width: calc(50% - #{$gutter});
+    }
+  }
+
+  &--columns-3 > li {
+    @include breakpoint(sm-up) {
+      width: calc(50% - #{$gutter});
     }
 
     @include breakpoint(lg-up) {
-      column-count: 3;
+      width: calc((100% / 3) - #{$gutter});
     }
   }
 
@@ -100,8 +114,7 @@
   &--animated {
     @include breakpoint(sm-up) {
       a {
-        transition:
-          opacity $animation-speed ease,
+        transition: opacity $animation-speed ease,
           transform $animation-speed ease;
       }
 
@@ -110,60 +123,13 @@
 
         &:hover {
           opacity: 1;
-          transform: scale(1.1)
+          transform: scale(1.1);
         }
 
         &:focus {
-          transform: scale(1.2)
+          transform: scale(1.2);
         }
       }
     }
   }
-}
-
-.hr {
-  border-color: $color-sailor-tint transparent transparent transparent ;
-  margin-bottom: $gutter;
-  margin-top: $gutter;
-
-  &--dashed {
-    @include dashed-border-h;
-    border: none;
-    height: 1px;
-  }
-
-  &--light {
-    opacity: 0.5;
-  }
-
-  &--short {
-    max-width: 60px;
-    margin-bottom: $pad-v--md;
-    margin-left: 0;
-    margin-right: auto;
-    margin-top: $pad-v--lg;
-  }
-
-  &--center-short {
-    max-width: 100px;
-    margin-bottom: $pad-v--md;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: $pad-v--lg;
-  }
-
-  &--margin-xl {
-    margin-bottom: $pad-v--lg;
-    margin-top: $pad-v--lg;
-
-    @include breakpoint(sm-up) {
-      margin-bottom: $pad-v--xl;
-      margin-top: $pad-v--xl;
-    }
-  }
-}
-
-.image-shadow {
-  // Uses filter over box-shadow as it support PNGs better
-  filter: drop-shadow( $shadow-grey--light );
 }

@@ -2,9 +2,17 @@
 
 ## The Task
 
-We'd like you to write a small prototype application to allow users to browse a list of customers together with their pet insurance quotes and policies.
+We'd like you to develop a small prototype application to allow users to browse a list of customers together with their pet insurance quotes and policies.
 
-Here are some examples of features we would like to see, but feel free to be as creative as you wish:
+Please **only spend 2-3 hours** on this. We're not expecting you to finish the app, we're more interested to see how you approach the task so just do what you can in the time you have.
+
+Some example pages have been created for you but you don't have to use them (if you do, there may be some improvements you can make):
+
+* [Customer list](http://localhost:8080/customers)
+* [Quote list](http://localhost:8080/quotes)
+* [Policy list](http://localhost:8080/policies)
+
+Here are some examples of features you could add, but feel free to be as creative as you wish:
 
 * Choosing a customer displays their details along with a list of their quotes and policies.
 * Choosing a quote or policy displays the details of that quote or policy.
@@ -12,8 +20,6 @@ Here are some examples of features we would like to see, but feel free to be as 
 * Users can deep link to customers, quotes and policies.
 * Sort order of lists can be chosen.
 * Users can search for a customer, quote or policy.
-
-The task should take approximately 2-4 hours to complete. We're not expecting you to finish the app, we're more interested to see how you approach the task so just do what you can in the time you have.
 
 When you have finished, you can either send over you solution as a zip file or add a [collaborator to your repository](https://help.github.com/en/github/setting-up-and-managing-your-github-user-account/inviting-collaborators-to-a-personal-repository). Let us know which you'd prefer and we will provide details the relevant details.
 
@@ -70,5 +76,4 @@ The raw data can be seen in [src/db.json](src/db.json)
 
 ### Styling
 
-* Pages don't need to be high-fidelity designs but you should make use of the existing SASS in [src/sass](src/sass) where possible.
-* Please re-use existing variables where you can (these can be found in [src/sass/framework/_variables.scss](/src/sass/framework/_variables.scss))
+* Pages don't need to be high-fidelity designs but you can make use of the existing SASS in [src/sass](src/sass).

@@ -16,55 +16,91 @@
 @mixin breakpoint($viewSize) {
   // XXS
   @if $viewSize == xxs-only {
-    @media screen and (max-width: $screen-xxs-max) { @content; }
+    @media screen and (max-width: $screen-xxs-max) {
+      @content;
+    }
   }
 
   // XS
   @if $viewSize == xs-down {
-    @media screen and (max-width: $screen-xs-max) { @content; }
+    @media screen and (max-width: $screen-xs-max) {
+      @content;
+    }
   }
+
   @if $viewSize == xs-only {
-    @media screen and (min-width: $screen-xs) and (max-width: $screen-xs-max) { @content; }
+    @media screen and (min-width: $screen-xs) and (max-width: $screen-xs-max) {
+      @content;
+    }
   }
+
   @if $viewSize == xs-up {
-    @media screen and (min-width: $screen-xs) { @content; }
+    @media screen and (min-width: $screen-xs) {
+      @content;
+    }
   }
 
   // SM
   @if $viewSize == sm-down {
-    @media screen and (max-width: $screen-sm-max) { @content; }
+    @media screen and (max-width: $screen-sm-max) {
+      @content;
+    }
   }
+
   @if $viewSize == sm-only {
-    @media screen and (min-width: $screen-sm) and (max-width: $screen-sm-max) { @content; }
+    @media screen and (min-width: $screen-sm) and (max-width: $screen-sm-max) {
+      @content;
+    }
   }
+
   @if $viewSize == sm-up {
-    @media screen and (min-width: $screen-sm) { @content; }
+    @media screen and (min-width: $screen-sm) {
+      @content;
+    }
   }
 
   // MD
   @if $viewSize == md-down {
-    @media screen and (max-width: $screen-md-max) { @content; }
+    @media screen and (max-width: $screen-md-max) {
+      @content;
+    }
   }
+
   @if $viewSize == md-only {
-    @media screen and (min-width: $screen-md) and (max-width: $screen-md-max) { @content; }
+    @media screen and (min-width: $screen-md) and (max-width: $screen-md-max) {
+      @content;
+    }
   }
+
   @if $viewSize == md-up {
-    @media screen and (min-width: $screen-md) { @content; }
+    @media screen and (min-width: $screen-md) {
+      @content;
+    }
   }
 
   // LG
   @if $viewSize == lg-down {
-    @media screen and (max-width: $screen-lg-max)  { @content; }
+    @media screen and (max-width: $screen-lg-max) {
+      @content;
+    }
   }
+
   @if $viewSize == lg-only {
-    @media screen and (min-width: $screen-lg) and (max-width: $screen-lg-max)  { @content; }
+    @media screen and (min-width: $screen-lg) and (max-width: $screen-lg-max) {
+      @content;
+    }
   }
+
   @if $viewSize == lg-up {
-    @media screen and (min-width: $screen-lg) { @content; }
+    @media screen and (min-width: $screen-lg) {
+      @content;
+    }
   }
 
   // XL
   @if $viewSize == xl-only {
-    @media screen and (min-width: $screen-xl) { @content; }
+    @media screen and (min-width: $screen-xl) {
+      @content;
+    }
   }
 }

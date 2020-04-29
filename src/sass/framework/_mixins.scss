@@ -1,15 +1,4 @@
-
 @mixin font--hero {
-  font-size: $font-size-hero--mob;
-  line-height: $line-height-hero--mob;
-
-  @include breakpoint(xs-up) {
-    font-size: $font-size-hero;
-    line-height: $line-height-hero;
-  }
-}
-
-@mixin font--xlarge {
   font-size: $font-size-hero--mob;
   line-height: $line-height-hero--mob;
 
@@ -92,32 +81,29 @@
 
   appearance: none;
   background: transparent;
-  cursor: pointer;
-  color: $text-color;
-  display: inline-block;
-  margin: 0;
-  outline: none;
-  text-decoration: none;
-  transition:
-    background-color $animation-speed--fast ease-in,
-    border $animation-speed--fast ease-in,
-    color $animation-speed--fast ease-in;
-
   border-color: transparent;
   border-radius: 6px;
   border-style: solid;
   border-width: 2px;
-  font-weight: 500;
-  line-height: 24px;
-  padding: $pad-v--xxs $pad-h--md;
-  text-align: center; // For when full-width within flex item
+  color: $text-color;
+  cursor: pointer;
+  display: inline-block;
+  font-family: $font-family-sans-serif;
 
   // font smoothing to alias text
   // Assists with consistent aliasing where there is
   // strange rendering of button within fixed header
   -webkit-font-smoothing: antialiased;
   font-smoothing: antialiased;
+  font-weight: 500;
+  line-height: 24px;
+  margin: 0;
+  outline: none;
+  padding: $pad-v--xxs $pad-h--md;
+  text-decoration: none;
   text-rendering: optimizeLegibility;
+  transition: background-color $animation-speed--fast ease-in,
+    border $animation-speed--fast ease-in, color $animation-speed--fast ease-in;
 
   &[disabled] {
     cursor: not-allowed;
@@ -182,11 +168,11 @@
 
   &::after {
     // Base style based on btn--primary, using white icon
-    background-image: url('../assets/svg/icon-white-chevron-down.svg');
+    background-image: url("../assets/svg/icon-white-chevron-down.svg");
     background-position: right center;
     background-repeat: no-repeat;
     background-size: contain;
-    content: '';
+    content: "";
     height: 16px;
     position: absolute;
     right: 20px;
@@ -196,7 +182,7 @@
 
   &--selected {
     &::after {
-      background-image: url('../assets/svg/icon-white-chevron-up.svg');
+      background-image: url("../assets/svg/icon-white-chevron-up.svg");
       background-position: right center;
       background-repeat: no-repeat;
       background-size: contain;
@@ -210,11 +196,11 @@
 
   &::after {
     // Base style based on btn--primary, using white icon
-    background-image: url('../assets/svg/icon-white-tick.svg');
+    background-image: url("../assets/svg/icon-white-tick.svg");
     background-position: right center;
     background-repeat: no-repeat;
     background-size: contain;
-    content: '';
+    content: "";
     height: 16px;
     position: absolute;
     right: 12px;
@@ -223,102 +209,197 @@
   }
 }
 
+// Chevron buttons
+// Set base styling and positioning using `button--chevron` based on default of
+// chevron coming after the text. Then use the additional placement mixins eg
+// `button--chevron-right` to add the background icon and additional styling.
+
 @mixin button--chevron {
   font-weight: 500;
   position: relative;
-  padding: 0 25px 0 0;
 
   &::after {
-    // Base style based on btn--primary, using white icon
-    background-image: url('../assets/svg/icon-chevron-right.svg');
-    background-position: right center;
+    background-position: right center; // defaults to right, override to position left
     background-repeat: no-repeat;
     background-size: contain;
-    content: '';
+    content: "";
     height: 7px;
     padding-top: 10px;
     position: absolute;
-    right: 10px;
+    right: 10px; // defaults to right, override to position left
+    top: 7px;
     transition: color $animation-speed ease-out;
-    top: 4px;
     width: 7px;
   }
 
   &:hover {
     color: $color-eire-darker;
+  }
+}
 
+@mixin button--chevron-right {
+  padding: 0 25px 0 0;
+
+  &::after {
+    background-image: url("../assets/svg/icon-chevron-right.svg");
+  }
+
+  &:hover {
     &::after {
       right: $pad-h--xs;
       transition: right $animation-speed ease-out;
     }
   }
 
-  &.btn--micro {
+  &.button--micro {
     &::after {
-      top: 4px;
+      top: 5px;
       width: 5px;
     }
   }
 }
 
 @mixin button--chevron-left {
-  font-weight: 500;
-  position: relative;
-  padding: 0 0 0 25px;
+  border-left: 0;
+  padding: 0 0 0 13px;
 
-  &::before {
-    // Base style based on btn--primary, using white icon
-    background-image: url('../assets/svg/icon-chevron-right.svg');
+  &::after {
+    background-image: url("../assets/svg/icon-chevron-right.svg");
     background-position: left center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    content: '';
-    height: 7px;
-    padding-top: 10px;
-    position: absolute;
-    left: 10px;
-    transition: color $animation-speed ease-out;
-    transform:rotate(180deg);
-    top: 4px;
-    width: 7px;
+    left: 0;
+    right: auto;
+    transform: rotate(180deg);
   }
 
   &:hover {
-    color: $color-eire-darker;
-
-    &::before {
-      left: $pad-h--xs;
+    &::after {
+      left: -$pad-h--xs;
       transition: left $animation-speed ease-out;
     }
   }
 
-  &.btn--micro {
-    &::before {
-      top: 2px;
+  &.button--micro {
+    &::after {
+      top: 5px;
       width: 5px;
     }
   }
 }
 
+@mixin button--chevron-down {
+  padding: 0 30px 0 0;
+
+  &::after {
+    background-image: url("../assets/svg/icon-eire-chevron-down.svg");
+    top: 8px;
+    width: 10px;
+  }
+
+  &.button--micro {
+    &::after {
+      top: 5px;
+      width: 8px;
+    }
+  }
+}
+
+@mixin button--progress {
+  padding-right: 36px;
+  position: relative;
+
+  $spinner-size: 20px;
+
+  &::after {
+    animation-duration: $animation-speed--slower;
+    animation-iteration-count: infinite;
+    animation-name: spin;
+    animation-timing-function: linear;
+    background-image: url("../assets/svg/progress-ring-outer.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: "";
+    height: $spinner-size;
+    position: absolute;
+    right: $spinner-size / 2;
+    top: $spinner-size / 2;
+    width: $spinner-size;
+  }
+
+  &::before {
+    animation-direction: reverse;
+    animation-duration: $animation-speed--slower;
+    animation-iteration-count: infinite;
+    animation-name: spin;
+    animation-timing-function: linear;
+    background-image: url("../assets/svg/progress-ring-inner.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: $spinner-size/1.5;
+    content: "";
+    height: $spinner-size;
+    position: absolute;
+    right: $spinner-size / 2;
+    top: $spinner-size / 2;
+    width: $spinner-size;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotateZ(0deg);
+    }
+    100% {
+      transform: rotateZ(360deg);
+    }
+  }
+}
+
+@mixin button--progress-white {
+  &::before {
+    background-image: url("../assets/svg/progress-ring-inner-white.svg");
+  }
+
+  &::after {
+    background-image: url("../assets/svg/progress-ring-inner-white.svg");
+  }
+}
+
+@mixin button--chevron-up {
+  padding: 0 30px 0 0;
+
+  &::after {
+    background-image: url("../assets/svg/icon-eire-chevron-down.svg");
+    top: 8px;
+    transform: rotate(180deg);
+    width: 10px;
+  }
+
+  &.button--micro {
+    &::after {
+      top: 5px;
+      width: 8px;
+    }
+  }
+}
 
 // Add pink dot after Title
 @mixin title-dot {
-  &:after {
+  &::after {
     color: $color-bounce;
-    content: '.';
+    content: ".";
     display: inline;
   }
 }
 
 @mixin sr-only {
-  position: absolute;
-  width: 1px;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
   height: 1px;
   margin: -1px;
-  padding: 0;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
+  padding: 0;
+  position: absolute;
+  width: 1px;
 }
 
 // dashed-border
@@ -327,7 +408,11 @@
   $border-position: if($direction == h, bottom center, right center);
   $repeat-direction: if($direction == h, repeat-x, repeat-y);
 
-  background-image: linear-gradient(to $border-direction, $grey-mid 50%, rgba(255,255,255,0) 0%);
+  background-image: linear-gradient(
+    to $border-direction,
+    $grey-mid 50%,
+    rgba(255, 255, 255, 0) 0%
+  );
   background-position: $border-position;
   background-repeat: $repeat-direction;
   background-size: if($direction == h, 10px 1px, 1px 10px);
@@ -335,10 +420,14 @@
 
 // Add horizontal dashed line
 @mixin dashed-border-h {
-  @include dashed-border(h)
+  @include dashed-border(h);
 }
 
 // Add vertical dashed line
 @mixin dashed-border-v {
-  @include dashed-border(v)
+  @include dashed-border(v);
+}
+
+@mixin aspect-ratio($width, $height) {
+  padding-top: ($height / $width) * 100%;
 }

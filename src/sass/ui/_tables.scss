@@ -1,10 +1,9 @@
-
 // Force Tables to overflow on Mobile by putting them in `table-container`
 .table-container {
   @include breakpoint(sm-down) {
     margin-right: -$gutter--sm;
-    position: relative;
     overflow-x: auto;
+    position: relative;
     z-index: 10;
   }
 
@@ -24,6 +23,7 @@ table {
     td,
     th {
       @include font--micro;
+
       border: 1px solid $clay-dark;
       line-height: normal;
       padding: $pad-v--xs $pad-h--sm;
@@ -31,8 +31,8 @@ table {
       vertical-align: middle;
 
       @include breakpoint(sm-up) {
-        min-width: 8rem;
         max-width: 12rem;
+        min-width: 8rem;
       }
 
       &.label-cell {
@@ -49,8 +49,8 @@ table {
       }
 
       &.empty-cell {
-        border: none;
         background: transparent;
+        border: none;
       }
     }
   }

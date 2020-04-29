@@ -2,8 +2,8 @@
   <div id="app">
     <site-header />
 
-    <main class="content">
-      <!-- Add your code here -->
+    <main class="content container">
+      <router-view></router-view>
     </main>
 
     <site-footer />
@@ -20,17 +20,19 @@ export default {
   components: {
     SiteHeader,
     SiteFooter,
-  }
+  },
 }
 </script>
 
 <style lang="scss">
 
 .content {
-  margin-top: 80px;
+  margin-bottom: 1em;
+  margin-top: calc(90px + 1em);
 
   @include breakpoint(sm-up) {
-    margin-top: 90px;
+    margin-bottom: 1em;
+    margin-top: calc(100px + 1em);
   }
 }
 </style>

@@ -1,12 +1,13 @@
 body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   margin: 0;
   padding: 0;
-  -webkit-font-smoothing: antialiased;
 }
 
 .container {
-  margin-right: auto;
   margin-left: auto;
+  margin-right: auto;
   max-width: $container--xxs;
   padding-left: $gutter / 2;
   padding-right: $gutter / 2;
@@ -36,6 +37,18 @@ body {
     padding-left: $gutter;
     padding-right: $gutter;
   }
+
+  &--fluid {
+    box-sizing: border-box;
+    padding-left: $pad-h--lg;
+    padding-right: $pad-h--lg;
+    width: 100%;
+
+    @include breakpoint(xs-up) {
+      padding-left: $pad-h--xl;
+      padding-right: $pad-h--xl;
+    }
+  }
 }
 
 // Slim content width for text only pages
@@ -63,8 +76,10 @@ body {
     padding-top: $pad-v--xxxl;
   }
 
-  > h2,  > .h2,
-  > h3,  > .h3 {
+  > h2,
+  > .h2,
+  > h3,
+  > .h3 {
     // If title immediate first child of padded-block (which it most likely will be)
     // remove the top margin for consistent padding on whole block
     margin-top: 0;
@@ -75,7 +90,7 @@ body {
   }
 
   &--bottom-md {
-     padding-bottom: $pad-v--sm;
+    padding-bottom: $pad-v--sm;
 
     @include breakpoint(sm-up) {
       padding-bottom: $pad-v--md;
@@ -83,7 +98,7 @@ body {
   }
 
   &--top-md {
-     padding-top: $pad-v--sm;
+    padding-top: $pad-v--sm;
 
     @include breakpoint(sm-up) {
       padding-top: $pad-v--md;
