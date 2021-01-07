@@ -8,7 +8,7 @@
       @keyup="search"
     />
     <div v-if="selected.customer" class="name">
-      <h3 @click="getCustomerData" class="name__title">
+      <h3 @click="getPolicyData" class="name__title">
         {{ selected.customer.name.first }} {{ selected.customer.name.last }}
       </h3>
     </div>
@@ -102,28 +102,29 @@ export default {
     formatSearchName() {
       // user input to array for first and second name
       const nameToArr = this.searchedName.split(" ");
-      // check first or second is present
-      if (nameToArr.length == 1) {
-        this.name.first = nameToArr[0].toLowerCase();
+      this.checkNames(nameToArr);
+    },
+    checkNames(arr) {
+      // check first or last name is present
+      if (arr.length == 1) {
+        this.name.first = arr[0].toLowerCase();
       } else {
-        this.name.last = nameToArr[1].toLowerCase();
+        this.name.last = arr[1].toLowerCase();
       }
     },
     search() {
-      // throttle needed if extensive search
-      console.log("search");
       this.formatSearchName();
       const searchViaName = this.customers.filter((customer) => {
-        // get values of name obj into arr
+        // get obj values for name first and last
         const nameValuesArr = Object.values(customer.name);
-        // check if first/last exists
+        // check if first/last name can be found
         if (
           nameValuesArr.some((el) => el.toLowerCase() === this.name.first) ||
           nameValuesArr.some((el) => el.toLowerCase() === this.name.last)
         )
           return customer;
       });
-
+      // set selected customer
       this.selected.customer = searchViaName[0];
       this.clearSearch();
     },
@@ -147,7 +148,7 @@ export default {
       const quotes = axios.get(quotesUrl);
       const policies = axios.get(policesUrl);
       // .all used to check no errors in both get requests
-      // loading screen here
+      // loading screen here needed
       axios
         .all([quotes, policies])
         .then(
@@ -165,9 +166,6 @@ export default {
           // react on errors.
           // UI updates here to let user know about errors
         });
-    },
-    getCustomerData() {
-      this.getPolicyData();
     },
   },
 };
