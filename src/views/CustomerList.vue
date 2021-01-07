@@ -1,13 +1,10 @@
 <template>
   <div>
     <h1>Search</h1>
-    <input
-      type="text"
-      placeholder="Search for customer"
-      v-model="customerName"
-    />
-    <button @click="search">Search</button>
+    <input type="text" placeholder="customer name" v-model="customerName" />
+    <button @click="search" :disabled="disableSearch">Search</button>
     {{ customerName }}
+    {{ foundCustomer }}
     <ul>
       <li v-for="customer in customers">
         {{ customer.name.first }} {{ customer.name.last }}
@@ -25,6 +22,9 @@ export default {
     return {
       customers: [],
       customerName: "",
+      firstName: "",
+      lastName: "",
+      foundCustomer: null,
     };
   },
   created() {
@@ -39,25 +39,37 @@ export default {
         console.log(e);
       });
   },
+  computed: {
+    disableSearch() {
+      return !this.customerName.length > 0;
+    },
+  },
   methods: {
+    formatSearchName() {
+      // user input to array for first and second name
+      const nameToArr = this.customerName.split(" ");
+      // check first or second is present
+      if (nameToArr.length == 1) {
+        this.firstName = nameToArr[0].toLowerCase();
+      } else {
+        this.lastName = nameToArr[1].toLowerCase();
+      }
+    },
     search() {
       console.log("search");
-
-      // search for name
-      // check customers data
-      // filter for name
-      const searchNames = this.customers.filter(
-        (customer) => customer.name.first === this.customerName
-      );
-
+      this.formatSearchName();
       const searchViaName = this.customers.filter((customer) => {
-        const nameToArr = this.customerName.split(" ");
+        // get values of name obj into arr
         const nameValuesArr = Object.values(customer.name);
-        if (nameValuesArr.some(el => el === nameToArr[0]) || nameValuesArr.some(el => el === nameToArr[1])  ) {
-         return customer;
-        }
+        // check if first/last exists
+        if (
+          nameValuesArr.some((el) => el.toLowerCase() === this.firstName) ||
+          nameValuesArr.some((el) => el.toLowerCase() === this.lastName)
+        )
+          return customer;
       });
       console.log(searchViaName);
+      this.foundCustomer = searchViaName;
     },
   },
 };
