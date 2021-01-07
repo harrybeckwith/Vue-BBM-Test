@@ -8,9 +8,28 @@
       @keyup="search"
     />
     <div v-if="selected.customer">
-      <p @click="getCustomerData">
+      <h3 @click="getCustomerData">
         {{ selected.customer.name.first }} {{ selected.customer.name.last }}
-      </p>
+      </h3>
+    </div>
+
+    <div v-if="selected.policy" class="card">
+      <h4 class="card__header">policies</h4>
+      <div class="card-body">
+        <p>
+          {{ selected.policy.status }}
+        </p>
+        <p>Policy no: {{ selected.policy.id }}</p>
+        <p>£{{ selected.policy.product.price.monthly }} per month</p>
+        <p>£{{ selected.policy.product.price.annual }} annually</p>
+        <p>Pets</p>
+        <ul>
+          <li v-for="(name, i) in petNames" :key="i">
+            {{ name }}
+          </li>
+        </ul>
+      </div>
+  
     </div>
   </div>
 </template>
@@ -47,6 +66,11 @@ export default {
         console.log(e);
       });
   },
+  computed: {
+    petNames() {
+      return this.selected.policy.insured_entities.map((item) => item.name);
+    },
+  },
   methods: {
     formatSearchName() {
       // user input to array for first and second name
@@ -72,9 +96,16 @@ export default {
         )
           return customer;
       });
+      // set the found customer data
       this.selected.customer = searchViaName[0];
+      // clear policy and quote data if no found customer
+      if (searchViaName[0] == null) {
+        this.selected.policy = null;
+        this.selected.quote = null;
+      }
     },
     filterByCustomerId(arr) {
+      // get customer by uuid
       return arr.filter(
         (item) => item.customerId === this.selected.customer.id
       );
@@ -82,23 +113,24 @@ export default {
     getPolicyData() {
       let quotesUrl = "http://localhost:3000/quotes/";
       let policesUrl = "http://localhost:3000/policies/";
-
+      // get quotes and policies data
       const quotes = axios.get(quotesUrl);
       const policies = axios.get(policesUrl);
-
+      // .all used to check no errors in both get requests
       axios
         .all([quotes, policies])
         .then(
           axios.spread((...responses) => {
             const quotesResponse = responses[0].data;
             const policesResponse = responses[1].data;
-            this.selected.quote = this.filterByCustomerId(quotesResponse);
-            this.selected.policy = this.filterByCustomerId(policesResponse);
+            this.selected.quote = this.filterByCustomerId(quotesResponse)[0];
+            this.selected.policy = this.filterByCustomerId(policesResponse)[0];
           })
         )
         .catch((errors) => {
           console.log(errors);
           // react on errors.
+          // UI updates here to let user know about errors
         });
     },
     getCustomerData() {

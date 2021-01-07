@@ -5,8 +5,8 @@ module.exports = {
         prependData: `
           @import "@/sass/framework/framework";
           @import "@/sass/ui/ui";
-        `
-      }
-    }
-  }
-}
+        `,
+      },
+    },
+  },
+};
