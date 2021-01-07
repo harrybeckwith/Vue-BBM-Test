@@ -7,29 +7,51 @@
       v-model="searchedName"
       @keyup="search"
     />
-    <div v-if="selected.customer">
-      <h3 @click="getCustomerData">
+    <div v-if="selected.customer" class="name">
+      <h3 @click="getCustomerData" class="name__title">
         {{ selected.customer.name.first }} {{ selected.customer.name.last }}
       </h3>
     </div>
 
     <div v-if="selected.policy" class="card">
       <h4 class="card__header">policies</h4>
-      <div class="card-body">
-        <p>
+      <div class="card__body">
+        <p class="text-center">
           {{ selected.policy.status }}
         </p>
+        <p class="text-center">
+          £{{ selected.policy.product.price.monthly }} per month
+        </p>
+        <p class="text-center">
+          £{{ selected.policy.product.price.annual }} annually
+        </p>
         <p>Policy no: {{ selected.policy.id }}</p>
-        <p>£{{ selected.policy.product.price.monthly }} per month</p>
-        <p>£{{ selected.policy.product.price.annual }} annually</p>
+
         <p>Pets</p>
-        <ul>
+        <ul class="list">
           <li v-for="(name, i) in petNames" :key="i">
             {{ name }}
           </li>
         </ul>
       </div>
-  
+    </div>
+    <div v-if="selected.policy" class="card">
+      <h4 class="card__header">quotes</h4>
+      <div class="card__body">
+        <p class="text-center">
+          {{ selected.quote.status }}
+        </p>
+
+        <p>Policy no: {{ selected.quote.id }}</p>
+
+        <ul class="list">
+          <li v-for="(product, i) in quoteProducts" :key="i">
+            {{ product.type }}
+            <p>£{{ product.price.annual }} annually</p>
+            <p>£{{ product.price.monthly }} monthlyly</p>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -68,7 +90,12 @@ export default {
   },
   computed: {
     petNames() {
+      // save pet names from policy
       return this.selected.policy.insured_entities.map((item) => item.name);
+    },
+    quoteProducts() {
+      // save products for quotes
+      return this.selected.quote.products;
     },
   },
   methods: {
@@ -96,10 +123,13 @@ export default {
         )
           return customer;
       });
-      // set the found customer data
+
       this.selected.customer = searchViaName[0];
+      this.clearSearch();
+    },
+    clearSearch() {
       // clear policy and quote data if no found customer
-      if (searchViaName[0] == null) {
+      if (this.selected.customer == null) {
         this.selected.policy = null;
         this.selected.quote = null;
       }
@@ -117,12 +147,15 @@ export default {
       const quotes = axios.get(quotesUrl);
       const policies = axios.get(policesUrl);
       // .all used to check no errors in both get requests
+      // loading screen here
       axios
         .all([quotes, policies])
         .then(
           axios.spread((...responses) => {
+            // store data from get
             const quotesResponse = responses[0].data;
             const policesResponse = responses[1].data;
+            // filter using uuid
             this.selected.quote = this.filterByCustomerId(quotesResponse)[0];
             this.selected.policy = this.filterByCustomerId(policesResponse)[0];
           })
@@ -139,3 +172,15 @@ export default {
   },
 };
 </script>
+<style scoped>
+.name {
+  margin-top: 10px;
+}
+.name__title {
+  cursor: pointer;
+}
+
+.name__title:hover {
+  color: black;
+}
+</style>
