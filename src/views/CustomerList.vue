@@ -1,56 +1,65 @@
 <template>
   <div>
     <h1>Search</h1>
+
     <input
       type="text"
       placeholder="customer name"
       v-model="searchedName"
       @keyup="search"
     />
+
     <div v-if="selected.customer" class="name">
       <h3 @click="getPolicyData" class="name__title">
         {{ selected.customer.name.first }} {{ selected.customer.name.last }}
       </h3>
     </div>
+    <div class="search-container">
+      <!-- Policy card -->
+      <div v-if="selected.policy" class="card">
+        <h4 class="card__header">Policies</h4>
 
-    <div v-if="selected.policy" class="card">
-      <h4 class="card__header">policies</h4>
-      <div class="card__body">
-        <p class="text-center">
-          {{ selected.policy.status }}
-        </p>
-        <p class="text-center">
-          £{{ selected.policy.product.price.monthly }} per month
-        </p>
-        <p class="text-center">
-          £{{ selected.policy.product.price.annual }} annually
-        </p>
-        <p>Policy no: {{ selected.policy.id }}</p>
+        <div class="card__body">
+          <p class="text-center">
+            {{ toTitleCase(selected.policy.status) }}
+          </p>
 
-        <p>Pets</p>
-        <ul class="list">
-          <li v-for="(name, i) in petNames" :key="i">
-            {{ name }}
-          </li>
-        </ul>
+          <p class="text-center">
+            £{{ selected.policy.product.price.monthly }} per month
+          </p>
+
+          <p class="text-center">
+            £{{ selected.policy.product.price.annual }} annually
+          </p>
+
+          <p>Pets</p>
+
+          <ul class="list">
+            <li v-for="(name, i) in petNames" :key="i">
+              {{ name }}
+            </li>
+          </ul>
+
+          <p>Policy no: {{ selected.policy.id }}</p>
+        </div>
       </div>
-    </div>
-    <div v-if="selected.policy" class="card">
-      <h4 class="card__header">quotes</h4>
-      <div class="card__body">
-        <p class="text-center">
-          {{ selected.quote.status }}
-        </p>
+      <!-- Quote card -->
+      <div v-if="selected.policy" class="card">
+        <h4 class="card__header">Quotes</h4>
 
-        <p>Policy no: {{ selected.quote.id }}</p>
+        <div class="card__body">
+          <p class="text-center">
+            {{ toTitleCase(selected.quote.status) }}
+          </p>
 
-        <ul class="list">
-          <li v-for="(product, i) in quoteProducts" :key="i">
-            {{ product.type }}
-            <p>£{{ product.price.annual }} annually</p>
-            <p>£{{ product.price.monthly }} monthlyly</p>
-          </li>
-        </ul>
+          <ul class="list">
+            <li v-for="(product, i) in quoteProducts" :key="i">
+              <p>{{ toTitleCase(product.type) }}: £{{ product.price.monthly }} monthly</p>
+            </li>
+          </ul>
+
+          <p>Policy no: {{ selected.quote.id }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -123,6 +132,7 @@ export default {
           nameValuesArr.some((el) => el.toLowerCase() === this.name.last)
         )
           return customer;
+        // ui message to show nothing found could go here
       });
       // set selected customer
       this.selected.customer = searchViaName[0];
@@ -167,18 +177,50 @@ export default {
           // UI updates here to let user know about errors
         });
     },
+    toTitleCase(string) {
+      // first letter to capital
+      const capitalFirstLetter = string[0].toUpperCase();
+      // remove first letter set rest to lowercase
+      const toLower = string.substring(1).toLowerCase();
+
+      return capitalFirstLetter + toLower;
+    },
   },
 };
 </script>
-<style scoped>
-.name {
-  margin-top: 10px;
-}
-.name__title {
-  cursor: pointer;
+<style scoped lang="scss">
+.card {
+  border-radius: 10px;
+  box-shadow: $shadow-grey--light;
+  width: 300px;
+  margin-right: 50px;
+  &__header {
+    background-color: $color-sailor;
+    color: $color-fairly;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    @include font--lead;
+  }
+  &__body {
+    padding: 10px;
+  }
 }
 
-.name__title:hover {
-  color: black;
+.name {
+  margin-top: 25px;
+  margin-bottom: 20px;
+  &__title {
+    @include link;
+    display: inline-block;
+    cursor: pointer;
+  }
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
 }
 </style>
