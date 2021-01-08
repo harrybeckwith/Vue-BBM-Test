@@ -11,24 +11,24 @@
 </template>
 
 <script>
-
-import SiteHeader from '@/components/SiteHeader'
-import SiteFooter from '@/components/SiteFooter'
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
     SiteHeader,
     SiteFooter,
   },
-}
+};
 </script>
 
 <style lang="scss">
-
 .content {
   margin-bottom: 1em;
   margin-top: calc(90px + 1em);
+  /* temp footer fix for demo */
+  min-height: calc(100vh - 309px);
 
   @include breakpoint(sm-up) {
     margin-bottom: 1em;
