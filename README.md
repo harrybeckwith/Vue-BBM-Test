@@ -1,5 +1,9 @@
 # Bought By Many - Frontend Candidate Task
 
+## Notes for demo
+
+The customer page is where my code is. I have created a search via customer name, for example search for "Leonard Freeman" will bring this customer up. Next clicking on the name will display the quote and policy information.
+
 ## The Task
 
 We'd like you to develop a small prototype application to allow users to browse a list of customers together with their pet insurance quotes and policies.
