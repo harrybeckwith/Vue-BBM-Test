@@ -1,14 +1,14 @@
 <template>
   <div>
-    <h1>Search</h1>
-
+    <h1>Search Customers</h1>
+    <!-- Search input -->
     <input
       type="text"
-      placeholder="customer name"
+      placeholder="Customer Name"
       v-model="searchedName"
       @keyup="search"
     />
-
+    <!-- Search results -->
     <div v-if="selected.customer" class="name">
       <h3 @click="getPolicyData" class="name__title">
         {{ selected.customer.name.first }} {{ selected.customer.name.last }}
@@ -29,7 +29,7 @@
             £{{ selected.policy.product.price.monthly }} per month
           </p>
 
-          <p class="card__title">Pets</p>
+          <p class="card__title">Pet names</p>
 
           <ul class="list--inline card__list">
             <li class="card__list__item" v-for="(name, i) in petNames" :key="i">
@@ -195,15 +195,16 @@ export default {
 .card {
   border-radius: 10px;
   box-shadow: $shadow-grey--light;
-  margin-right: 50px;
   width: 300px;
   margin-bottom: $pad-v--md;
+
   @include breakpoint(xs-up) {
     margin-bottom: 0;
+    margin-right: $pad-h--xxxxl;
   }
 
   &__header {
-    background-color: $color-sailor;
+    background-color: $color-loyal;
     color: $color-fairly;
     text-align: center;
     margin-bottom: 0;
@@ -224,7 +225,7 @@ export default {
       height: 1px;
       margin: 0 auto;
       margin-top: $pad-v--xxs;
-      background-color: #979797;
+      background-color: $color-sailor;
     }
   }
 
@@ -250,8 +251,8 @@ export default {
 }
 
 .name {
-  margin-top: 25px;
-  margin-bottom: 20px;
+  margin-top: $pad-v--sm;
+  margin-bottom: $pad-v--sm;
   &__title {
     @include link;
     display: inline-block;
