@@ -14,33 +14,31 @@
         {{ selected.customer.name.first }} {{ selected.customer.name.last }}
       </h3>
     </div>
+
     <div class="search-container">
       <!-- Policy card -->
       <div v-if="selected.policy" class="card">
         <h4 class="card__header">Policies</h4>
 
         <div class="card__body">
-          <p class="text-center">
+          <p class="card__title">
             {{ toTitleCase(selected.policy.status) }}
           </p>
 
-          <p class="text-center">
+          <p class="card__data">
             £{{ selected.policy.product.price.monthly }} per month
           </p>
 
-          <p class="text-center">
-            £{{ selected.policy.product.price.annual }} annually
-          </p>
+          <p class="card__title">Pets</p>
 
-          <p>Pets</p>
-
-          <ul class="list">
-            <li v-for="(name, i) in petNames" :key="i">
+          <ul class="list--inline card__list">
+            <li class="card__list__item" v-for="(name, i) in petNames" :key="i">
               {{ name }}
             </li>
           </ul>
 
-          <p>Policy no: {{ selected.policy.id }}</p>
+          <p class="card__title">Policy no</p>
+          <p class="card__data card__data--sm">{{ selected.policy.id }}</p>
         </div>
       </div>
       <!-- Quote card -->
@@ -48,17 +46,22 @@
         <h4 class="card__header">Quotes</h4>
 
         <div class="card__body">
-          <p class="text-center">
+          <p class="card__title">
             {{ toTitleCase(selected.quote.status) }}
           </p>
 
           <ul class="list">
-            <li v-for="(product, i) in quoteProducts" :key="i">
-              <p>{{ toTitleCase(product.type) }}: £{{ product.price.monthly }} monthly</p>
+            <li
+              class="list--inline card__data"
+              v-for="(product, i) in quoteProducts"
+              :key="i"
+            >
+              <p>
+                {{ toTitleCase(product.type) }}: £{{ product.price.monthly }}
+                monthly
+              </p>
             </li>
           </ul>
-
-          <p>Policy no: {{ selected.quote.id }}</p>
         </div>
       </div>
     </div>
@@ -192,17 +195,54 @@ export default {
 .card {
   border-radius: 10px;
   box-shadow: $shadow-grey--light;
-  width: 300px;
   margin-right: 50px;
+  width: 300px;
+  margin-bottom: $pad-v--md;
+  @include breakpoint(xs-up) {
+    margin-bottom: 0;
+  }
+
   &__header {
     background-color: $color-sailor;
     color: $color-fairly;
     text-align: center;
+    margin-bottom: 0;
     padding-top: 10px;
     padding-bottom: 10px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     @include font--lead;
+  }
+
+  &__title {
+    text-align: center;
+    @include font--small;
+    &:after {
+      content: "";
+      display: block;
+      width: 58px;
+      height: 1px;
+      margin: 0 auto;
+      margin-top: $pad-v--xxs;
+      background-color: #979797;
+    }
+  }
+
+  &__data {
+    @include font--small;
+    text-align: center;
+
+    &--sm {
+      @include font--micro;
+    }
+  }
+
+  &__list {
+    margin-bottom: $pad-v--xs;
+    justify-content: center;
+    &__item {
+      @include font--micro;
+    }
   }
   &__body {
     padding: 10px;
@@ -222,5 +262,12 @@ export default {
 .search-container {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  @include breakpoint(xs-up) {
+    flex-direction: row;
+    align-items: normal;
+  }
 }
 </style>
